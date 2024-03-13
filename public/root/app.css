@@ -1,0 +1,81 @@
+body {
+    background-color: var(--mdb-info-text-emphasis);
+}
+
+.app {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    /* align-content: baseline; */
+    margin: 0 auto;
+    height: 100vh;
+}
+
+.app-login {
+    height: 100vh;
+    display: flex;
+    place-items: center;
+}
+
+.app-view {
+    width: 100%;
+    display: flex;
+    min-height: 100%;
+}
+
+@media (min-width: 1024pt) {
+    .app-view {
+        width: 100%;
+        /* max-width: 1199px; */
+        max-width: 1024pt;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    .card.login {
+        width: 95%;
+    }
+}
+
+.app-navigation {
+    width: 100%;
+    max-width: 280px;
+    height: 100vh;
+    background-color: var(--bs-light);
+    border-right-style: solid;
+    border-right-color: var(--mdb-info-text-emphasis);
+    border-right-width: 1px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0 !important;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+ul>li a.app-col-nav-link:hover,
+ul>li a.app-col-nav-link.active {
+    background-color: #42434493;
+    color: #fff;
+}
+
+.app-content {
+    flex-grow: 1;
+    width: 100%;
+    background-color: var(--bs-white);
+}
+
+/* forms styles to override mdb & bootstrap atyles */
+.form-outline .form-control,
+.form-control,
+.form-select {
+    border: 1px solid var(--mdb-primary);
+}
+
+.form-outline .form-control:active,
+.form-outline .form-control:focus,
+.form-control:focus,
+.form-select:focus {
+    border: 2px solid #0d6efd;
+    box-shadow: none;
+}
