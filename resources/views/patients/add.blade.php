@@ -1,53 +1,101 @@
 @extends('layout.page')
 @section('content')
-<div>
-    <!-- The whole future lies in uncertainty: live immediately. - Seneca -->
-</div>
+    <div>
+        <!-- The whole future lies in uncertainty: live immediately. - Seneca -->
+    </div>
+    <style type="text/css">
+        @media (min-width: 768px) {
+
+            .form-control,
+            .form-select,
+            .alert {
+                max-width: 400px;
+            }
+        }
+    </style>
     <div class="contsiner-fluid mt-4">
-        <h5 class="h4 text-capitalize ">add new patient</h5>
-        <form id="add-new-patient" action="#" method="POST">
+        <h5 class="h4 text-capitalize fw-semibold">add new patient</h5>
+        @if ($errors->any())
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading text-center">An Error Occured</h4>
+                <ul class="list-unstyled row justify-content-center ">
+                    @foreach ($error->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form id="add-new-patient" action="{{ route('patients.store') }}" method="POST" class="my-3">
             @csrf
             <div class="row mb-2">
-                <label for="first_name" class="col-sm-3 col-form-label">First Name</label>
+                <label for="patient_id" class="col-sm-3 col-form-label">Patient ID <span class="text-danger"
+                        title="Required">*</span>
+                </label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="first_name">
+                    <input required readonly value="{{ generatePatientID() }}" type="text" class="form-control"
+                        id="patient_id" name="id" />
                 </div>
             </div>
             <div class="row mb-2">
-                <label for="mid_name" class="col-sm-3 col-form-label">Middle Name</label>
+                <label for="first_name" class="col-sm-3 col-form-label">First Name <span class="text-danger"
+                        title="Required">*</span>
+                </label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="mid_name">
+                    <input required autofocus type="text" class="form-control" id="first_name" name="first_name"
+                        title="Patient first name is required" />
                 </div>
             </div>
             <div class="row mb-2">
-                <label for="last_name" class="col-sm-3 col-form-label">Last Name</label>
+                <label for="mid_name" class="col-sm-3 col-form-label">Middle Name </label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="last_name">
+                    <input type="text" class="form-control" id="mid_name" name="mid_name" />
                 </div>
             </div>
             <div class="row mb-2">
-                <label for="address" class="col-sm-3 col-form-label">Address</label>
+                <label for="last_name" class="col-sm-3 col-form-label">Last Name <span class="text-danger"
+                        title="Required">*</span>
+                </label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="address">
+                    <input required type="text" class="form-control" id="last_name" name="last_name" />
                 </div>
             </div>
             <div class="row mb-2">
-                <label for="phone_number" class="col-sm-3 col-form-label">Phone Number</label>
+                <label for="address" class="col-sm-3 col-form-label">Address <span class="text-danger"
+                        title="Required">*</span></label>
                 <div class="col-sm-9">
-                    <input type="tel" class="form-control" id="phone_number">
+                    <input required type="text" class="form-control" id="address" name="address" />
+                </div>
+            </div>
+            <div class="row mb-2">
+                <label for="phone_number" class="col-sm-3 col-form-label">Phone Number <span class="text-danger"
+                        title="Required">*</span></label>
+                <div class="col-sm-9">
+                    <input required type="tel" class="form-control" id="phone_number" name="phone_number" />
+                </div>
+            </div>
+            <div class="row mb-2">
+                <label class="col-sm-3 col-form-label" for="date_of_birth">
+                    Date of Birth
+                    <span class="text-danger" title="Required">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input required type="text" class="form-control datepicker" id="date_of_birth"
+                        name="date_of_birth" />
                 </div>
             </div>
             <div class="row mb-2">
                 <label for="email" class="col-sm-3 col-form-label">Email</label>
                 <div class="col-sm-9">
-                    <input type="email" class="form-control" id="email">
+                    <input type="email" class="form-control" id="email" name="email" />
                 </div>
             </div>
             <div class="row mb-2">
-                <label for="gender" class="col-sm-3 col-form-label">Gender</label>
+                <label for="gender" class="col-sm-3 col-form-label">Gender <span class="text-danger"
+                        title="Required">*</span></label>
                 <div class="col-sm-9">
-                    <select class="form-select" id="gender">
-                        <option sele cted>Choose...</option>
+                    <select required class="form-select" id="gender" name="gender">
+                        <option value="" selected>Choose...</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </select>
@@ -56,14 +104,14 @@
             <div class="row mb-2">
                 <label for="religion" class="col-sm-3 col-form-label">Religion</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="religion">
+                    <input type="text" class="form-control" id="religion" name="religion" />
                 </div>
             </div>
             <div class="row mb-2">
                 <label for="blood_type" class="col-sm-3 col-form-label">Blood Type</label>
                 <div class="col-sm-9">
-                    <select class="form-select" id="blood_type">
-                        <option sele cted>Choose...</option>
+                    <select class="form-select" id="blood_type" name="blood_type">
+                        <option value="" selected>Choose Blood Group...</option>
                         <option value="A+">A+</option>
                         <option value="A-">A-</option>
                         <option value="B+">B+</option>
@@ -75,21 +123,105 @@
                     </select>
                 </div>
             </div>
-            <div class="row mb-2">
-                <label for="staff_id" class="col-sm-3 col-form-label">Staff ID</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" id="staff_id">
+            <div class="divider text-start" style="max-width: 650px">
+                <div class="divider-text">
+                    <h6 class="h6">Emergency Contact</h6>
                 </div>
             </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="is_staff">
-                <div class="row mb-2">
-                    <label class="form-check-label" for="is_staff">Is Staff</label>
-                    <div class="col-sm-9">
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label" for="e_firstname">First Name <span class="text-danger"
+                        title="Required">*</span></label>
+                <div class="col-md-9 col-sm-8">
+                    <input required type="text" class="form-control" id="e_firstname" name="e_firstname">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label" for="e_lastname">Last Name <span class="text-danger"
+                        title="Required">*</span></label>
+                <div class="col-md-9 col-sm-8">
+                    <input required type="text" class="form-control" id="e_lastname" name="e_lastname">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label" for="phone">Phone Number <span class="text-danger"
+                        title="Required">*</span>
+                </label>
+                <div class="col-md-9 col-sm-8">
+                    <input required type="tel" onpaste="return false" pattern="\d*" maxlength="12"
+                        title="Please enter only numbers [0-9]" class="form-control" id="e_phone" name="e_phone">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label" for="e_relation">Relationship <span class="text-danger"
+                        title="Required">*</span>
+                </label>
+                <div class="col-md-9 col-sm-9">
+                    <select required name="e_relation" id="e_relation" class="form-select text-capitalize ">
+                        <option value="" selected>Choose...</option>
+                        <option value="father">father</option>
+                        <option value="mother">mother</option>
+                        <option value="son">son</option>
+                        <option value="daughter">daughter</option>
+                        <option value="sister">sister</option>
+                        <option value="brother">brother</option>
+                        <option value="friend">friend</option>
+                        <option value="other">other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label" for="e_address">Residential Address <span class="text-danger"
+                        title="Required">*</span>
+                </label>
+                <div class="col-md-9 col-sm-8">
+                    <textarea required class="form-control" id="e_address" name="e_address" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <span class="col-sm-3 col-form-label" for="is_staff">Is Staff</span>
+                <div class="col-sm-9 mt-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-radio" type="radio" name="is_staff" id="staff_true"
+                            value="1" />
+                        <label class="form-check-label user-select-none " for="staff_true">YES</label>
                     </div>
-                </div><button type="submit
-            " class="btn btn-primary">Submit</button>
-        </form>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-radio" type="radio" name="is_staff" id="staff_false" value="0"
+                            checked />
+                        <label class="form-check-label user-select-none " for="staff_false">NO</label>
+                    </div>
+                </div>
+            </div>
 
+            <div class="row mb-3" id="row_staff_id" style="display: none;">
+                <label class="col-sm-3 col-form-label" for="e_address">Enter Staff Id <span class="text-danger"
+                        title="Required">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="hidden" name="staff_id" id="input_staff_id" />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mb-5">Save</button>
+        </form>
     </div>
+    <script>
+        $('form#add-new-patient').on('submit', () => {
+            $('#add-new-patient :submit').addClass('disabled');
+            return true;
+        });
+        var staff_id_input = $('input[name="staff_id"]');
+        staff_id_input.attr('disabled', true);
+        $('[name="is_staff"]').change((e) => {
+            e = e.currentTarget.value;
+            if (e == 1) {
+                $('#input_staff_id').attr('type', 'text');
+                $('#input_staff_id').attr('required', true);
+                staff_id_input.removeAttr('disable');
+                $('#row_staff_id').show();
+            } else {
+                $('#input_staff_id').removeAttr('required');
+                $('#row_staff_id').hide();
+            }
+        })
+    </script>
 @endsection

@@ -15,11 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layout.page');
-    // return view('auth.login', ['title'=>'login']);
+Route::redirect('/', '/qhims');
+Route::prefix('qhims')->group(function () {
+    Route::get('/', function () {
+        return view('layout.page');
+        // return view('auth.login', ['title'=>'login']);
+    });
+    Route::resource('/admin/hrm', HRMController::class);
+    /* patient routes */
+    Route::resource('/patients', PatientController::class);
+    Route::get('/patient/add-new', [PatientController::class, 'createNewPatient'])->name('patient.add-new');
 });
-Route::resource('/admin/hrm', HRMController::class);
-/* patient routes */
-Route::resource('/patients', PatientController::class);
-Route::get('/patient/add-new', [PatientController::class, 'createNewPatient'])->name('patient.add-new');

@@ -19,12 +19,13 @@ return new class extends Migration
             $table->string('full_name')->virtualAs('CONCAT(first_name," ",last_name," ",mid_name)')->nullable();
             $table->string('address');
             $table->string('phone_number');
-            $table->string('email')->nullable()->unique()->default('N/A');
+            $table->date('date_of_birth');
+            $table->string('email')->nullable()->unique();
             $table->enum('gender', ['male', 'female']);
             $table->string('religion')->nullable()->default('N/A');
             $table->enum('blood_type', ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'])->nullable();
             $table->enum('is_staff', [1, 0])->default(0);
-            $table->string('staff_id')->nullable()->default(0);
+            $table->string('staff_id')->nullable()->default('');
             $table->timestamps();
         });
     }

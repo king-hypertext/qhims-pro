@@ -9,6 +9,11 @@
     <meta name="keywords"
         content="Q-HIMS is a web-based system for hospitals to manage mostly all the processes and activities of the hospital" />
     <link rel="stylesheet" href="{{ asset('font-icons/css/all.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('plugins/jquery-ui/jquery-ui.css') }}" />
+    <link rel="stylesheet" href="{{ asset('plugins/jQuery/jquery-ui.theme.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('plugins/time-picker/jquery.timepicker.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('plugins/daterange-picker/daterangepicker.css') }}" />
+    <link rel="stylesheet" href="{{ asset('plugins/time-picker/jquery.timepicker.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/animate-css/animate.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/alert/sweetalert2.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/mdb/mdb.min.css') }}" />
@@ -40,6 +45,11 @@
     @include('layout.modals.schedule-appointment')
     <script src="{{ asset('plugins/mdb/mdb.umd.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('plugins/moment/moment.js') }}"></script>
+    <script src="{{ asset('plugins/jQuery/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('plugins/date-picker/js/moment-with-locales.min.js') }}"></script>
+    <script src="{{ asset('plugins/daterange-picker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('plugins/time-picker/jquery.timepicker.min.js') }}"></script>
     <script src="{{ asset('root/index.js') }}"></script>
     <script type="text/javascript">
         const showSuccessAlert = Swal.mixin({

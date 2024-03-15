@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use App\Models\Patient;
 
 if (!function_exists('generatePatientID')) {
     /**
@@ -17,10 +19,10 @@ if (!function_exists('generatePatientID')) {
 
         function getLastUsedId()
         {
-            // $id = Patients::latest()->first();
-            // if ($id == null) 
-            return "AAA0000";
-            // return  $id->opd_no;
+            $patient = Patient::query()->latest('created_at')->first();
+            if ($patient == null)
+                return "AAA0000";
+            return  $patient->id;
         }
 
         // Get the last used ID from the database
@@ -83,9 +85,9 @@ if (!function_exists('generatePatientID')) {
      **/
     function generateUserId()
     {
-        // $last_user_id = User::latest()->first();
-        // if ($last_user_id == null) return "SID1";
-        // return "SID" . intval(trim($last_user_id->staff_id, "SID")) + 1;
-        return "SID1";
+        $last_user_id = User::query()->latest('created_at')->first();
+        if ($last_user_id == null) return "SID1";
+        return "SID" . intval(trim($last_user_id->staff_id, "SID")) + 1;
+        // return "SID1";
     }
 }

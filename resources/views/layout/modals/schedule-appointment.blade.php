@@ -155,8 +155,8 @@
 <style>
     input:read-only {
         cursor: default;
-        background-color: rgb(132, 132, 132);
-        color: #fff;
+        background-color: rgb(227, 227, 227);
+        color: #000;
         border: 0;
     }
 </style>

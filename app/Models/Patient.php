@@ -12,5 +12,5 @@ class Patient extends Model
     use HasFactory;
     protected $table = 'patients';
     protected $keyType = 'string';
-    protected $incrementing = false;
+    public $incrementing = false;
 }
