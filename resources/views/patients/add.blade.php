@@ -7,25 +7,23 @@
         @media (min-width: 768px) {
 
             .form-control,
-            .form-select,
-            .alert {
+            .form-select {
                 max-width: 400px;
             }
         }
     </style>
-    <div class="contsiner-fluid mt-4">
+    <div class="container-fluid mt-4">
         <h5 class="h4 text-capitalize fw-semibold">add new patient</h5>
         @if ($errors->any())
             <div class="alert alert-danger" role="alert">
-                <h4 class="alert-heading text-center">An Error Occured</h4>
-                <ul class="list-unstyled row justify-content-center ">
-                    @foreach ($error->all() as $error)
+                <h4 class="alert-heading">An Error Occured</h4>
+                <ul class="list-unstyled">
+                    @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
             </div>
         @endif
-
         <form id="add-new-patient" action="{{ route('patients.store') }}" method="POST" class="my-3">
             @csrf
             <div class="row mb-2">
@@ -42,14 +40,14 @@
                         title="Required">*</span>
                 </label>
                 <div class="col-sm-9">
-                    <input required autofocus type="text" class="form-control" id="first_name" name="first_name"
-                        title="Patient first name is required" />
+                    <input required autofocus type="text" class="form-control" value="{{ @old('first_name') }}"
+                        id="first_name" name="first_name" title="Patient first name is required" />
                 </div>
             </div>
             <div class="row mb-2">
                 <label for="mid_name" class="col-sm-3 col-form-label">Middle Name </label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="mid_name" name="mid_name" />
+                    <input value="{{ @old('mid_name') }}" type="text" class="form-control" id="mid_name" name="mid_name" />
                 </div>
             </div>
             <div class="row mb-2">
@@ -57,21 +55,17 @@
                         title="Required">*</span>
                 </label>
                 <div class="col-sm-9">
-                    <input required type="text" class="form-control" id="last_name" name="last_name" />
+                    <input required type="text" class="form-control" id="last_name" value="{{ @old('last_name') }}"
+                        name="last_name" />
                 </div>
             </div>
-            <div class="row mb-2">
-                <label for="address" class="col-sm-3 col-form-label">Address <span class="text-danger"
-                        title="Required">*</span></label>
-                <div class="col-sm-9">
-                    <input required type="text" class="form-control" id="address" name="address" />
-                </div>
-            </div>
+
             <div class="row mb-2">
                 <label for="phone_number" class="col-sm-3 col-form-label">Phone Number <span class="text-danger"
                         title="Required">*</span></label>
                 <div class="col-sm-9">
-                    <input required type="tel" class="form-control" id="phone_number" name="phone_number" />
+                    <input required type="tel" class="form-control" value="{{ @old('phone_number') }}" id="phone_number"
+                        name="phone_number" />
                 </div>
             </div>
             <div class="row mb-2">
@@ -80,14 +74,14 @@
                     <span class="text-danger" title="Required">*</span>
                 </label>
                 <div class="col-sm-9">
-                    <input required type="text" class="form-control datepicker" id="date_of_birth"
-                        name="date_of_birth" />
+                    <input required type="text" value="{{ @old('date_of_birth') }}" class="form-control datepicker"
+                        id="date_of_birth" name="date_of_birth" />
                 </div>
             </div>
             <div class="row mb-2">
                 <label for="email" class="col-sm-3 col-form-label">Email</label>
                 <div class="col-sm-9">
-                    <input type="email" class="form-control" id="email" name="email" />
+                    <input type="email" value="{{ @old('email') }}" class="form-control" id="email" name="email" />
                 </div>
             </div>
             <div class="row mb-2">
@@ -104,13 +98,14 @@
             <div class="row mb-2">
                 <label for="religion" class="col-sm-3 col-form-label">Religion</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="religion" name="religion" />
+                    <input type="text" value="{{ @old('religion') }}" class="form-control" id="religion"
+                        name="religion" />
                 </div>
             </div>
             <div class="row mb-2">
-                <label for="blood_type" class="col-sm-3 col-form-label">Blood Type</label>
+                <label for="blood_group" class="col-sm-3 col-form-label">Blood Type</label>
                 <div class="col-sm-9">
-                    <select class="form-select" id="blood_type" name="blood_type">
+                    <select class="form-select" id="blood_group" name="blood_group">
                         <option value="" selected>Choose Blood Group...</option>
                         <option value="A+">A+</option>
                         <option value="A-">A-</option>
@@ -123,6 +118,14 @@
                     </select>
                 </div>
             </div>
+            <div class="row mb-2">
+                <label for="address" class="col-sm-3 col-form-label">Address <span class="text-danger"
+                        title="Required">*</span></label>
+                <div class="col-sm-9">
+                    <textarea value="{{ @old('address') }}" title="Parent residential address" required class="form-control" name="address" id="address"
+                        rows="3"></textarea>
+                </div>
+            </div>
             <div class="divider text-start" style="max-width: 650px">
                 <div class="divider-text">
                     <h6 class="h6">Emergency Contact</h6>
@@ -132,14 +135,16 @@
                 <label class="col-sm-3 col-form-label" for="e_firstname">First Name <span class="text-danger"
                         title="Required">*</span></label>
                 <div class="col-md-9 col-sm-8">
-                    <input required type="text" class="form-control" id="e_firstname" name="e_firstname">
+                    <input required type="text" value="{{ @old('e_firstname') }}" class="form-control"
+                        id="e_firstname" name="e_firstname">
                 </div>
             </div>
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label" for="e_lastname">Last Name <span class="text-danger"
                         title="Required">*</span></label>
                 <div class="col-md-9 col-sm-8">
-                    <input required type="text" class="form-control" id="e_lastname" name="e_lastname">
+                    <input required type="text" value="{{ @old('e_lastname') }}" class="form-control"
+                        id="e_lastname" name="e_lastname">
                 </div>
             </div>
             <div class="row mb-3">
@@ -147,8 +152,9 @@
                         title="Required">*</span>
                 </label>
                 <div class="col-md-9 col-sm-8">
-                    <input required type="tel" onpaste="return false" pattern="\d*" maxlength="12"
-                        title="Please enter only numbers [0-9]" class="form-control" id="e_phone" name="e_phone">
+                    <input required type="tel" value="{{ @old('e_phone') }}" onpaste="return false" pattern="\d*"
+                        maxlength="12" title="Please enter only numbers [0-9]" class="form-control" id="e_phone"
+                        name="e_phone">
                 </div>
             </div>
             <div class="row mb-3">
@@ -174,7 +180,7 @@
                         title="Required">*</span>
                 </label>
                 <div class="col-md-9 col-sm-8">
-                    <textarea required class="form-control" id="e_address" name="e_address" rows="3"></textarea>
+                    <textarea value="{{ @old('e_address') }}" required class="form-control" id="e_address" name="e_address" rows="3"></textarea>
                 </div>
             </div>
             <div class="row mb-3">
@@ -192,35 +198,39 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row mb-3" id="row_staff_id" style="display: none;">
-                <label class="col-sm-3 col-form-label" for="e_address">Enter Staff Id <span class="text-danger"
-                        title="Required">*</span>
+            {{-- check if patient is staff --}}
+            <div class="row mb-3">
+                <label style="display: none" class="col-sm-3 col-form-label" for="staff_id">Enter Staff Id <span
+                        class="text-danger" title="Required">*</span>
                 </label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="hidden" name="staff_id" id="input_staff_id" />
+                    <input value="{{ @old('staff_id') }}" class="form-control" type="hidden" name="staff_id"
+                        id="input_staff_id" />
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary mb-5">Save</button>
+            <button type="submit" class="btn btn-primary mb-5">
+                Save
+            </button>
         </form>
     </div>
-    <script>
+    <script type="text/javascript">
         $('form#add-new-patient').on('submit', () => {
-            $('#add-new-patient :submit').addClass('disabled');
+            $('#add-new-patient :submit').html('<span id="save-icon" class="fas fa-spinner fa-spin"></span>'+' Saving...').addClass('disabled');
             return true;
         });
-        var staff_id_input = $('input[name="staff_id"]');
-        staff_id_input.attr('disabled', true);
-        $('[name="is_staff"]').change((e) => {
+        var label = $('label[for="staff_id"]');
+        $('[name="is_staff"]').change(e => {
             e = e.currentTarget.value;
             if (e == 1) {
                 $('#input_staff_id').attr('type', 'text');
                 $('#input_staff_id').attr('required', true);
-                staff_id_input.removeAttr('disable');
-                $('#row_staff_id').show();
+                label.show();
+                $('#input_staff_id').removeAttr('disabled');
             } else {
+                label.hide();
                 $('#input_staff_id').removeAttr('required');
-                $('#row_staff_id').hide();
+                $('#input_staff_id').attr('type', 'hidden');
+                $('#input_staff_id').attr('disabled', true);
             }
         })
     </script>

@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class EmergencyContact extends Model
 {
     use HasFactory;
-    protected $table = 'emergency_contact';
+    protected $table = 'emergency_contacts';
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
 }

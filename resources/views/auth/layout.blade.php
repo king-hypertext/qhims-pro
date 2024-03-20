@@ -18,12 +18,12 @@
 
 <body class="app-login">
     {{-- <div class="app-view"> --}}
-        <div class="container">
-            @yield('section')
-        </div>
-        {{--
+    <div class="container">
+        @yield('section')
+    </div>
+    {{--
     </div> --}}
-    <script src="{{ asset('plugins/mdb/mdb.umd.min.js') }}"></script>
+    {{-- <script src="{{ asset('plugins/mdb/mdb.umd.min.js') }}"></script> --}}
     <script src="{{ asset('plugins/bootstrap/bootstrap.bundle.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(() => {
@@ -31,11 +31,18 @@
                 $('[data-date-time]').html(new Date().toUTCString())
             }, 1000);
         });
-        // $.each($('input'), function (i, d) {
-        //     if (!d.value) {
-        //         $(d).addClass('active')
-        //     }
-        // })
+        self.addEventListener('DOMContentLoaded', () => {
+            console.log('js loaded');
+            document.querySelectorAll('input').forEach(input => {
+                input.addEventListener('blur', () => {
+                    if (input.value == null || input.value == '') {
+                        input.classList.remove('active')
+                    } else if (input.value !== null) {
+                        input.classList.add('active')
+                    }
+                })
+            })
+        })
     </script>
     @yield('script')
 </body>

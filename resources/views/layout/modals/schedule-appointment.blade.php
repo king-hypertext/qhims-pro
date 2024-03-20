@@ -4,27 +4,27 @@
 <!-- The Modal -->
 <div class="modal fade" id="schedule-appointment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-hidden="true" style="">
-    <div class="modal-dialog modal-dialog-scrollable  modal-lg">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content" style="min-height: 500px">
             <div class="modal-header">
                 <h4 class="modal-title text-uppercase ">book appointment</h4>
-                <button type="button" title="exit" data-bs-toggle="button"
-                    class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="fas fa-times"></i></button>
+                <button type="button" title="exit" data-bs-toggle="button" class="btn btn-outline-danger"
+                    data-bs-dismiss="modal"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <div class="container-sm">
+                    <div class="col-sm-6 col-md-6">
+                        <div class="container-fluid">
                             <div class="row mb-2">
                                 <h5 class="h5">Search Patient</h5>
                             </div>
-                            {{-- search patient by opd_no --}}
+                            {{-- search patient by id --}}
                             <div class="row mb-3 ">
                                 <div class="col-sm-10">
                                     <div class="form-outline">
-                                        <input type="text" onfocus="this.select()" name="p_opd_no" id="p_opd_no"
+                                        <input autocomplete="yes" type="text" onfocus="this.select()" name="id" id="id"
                                             class="form-control" />
-                                        <label for="p_opd_no" class="form-label">OPD Number</label>
+                                        <label for="id" class="form-label">OPD Number</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -37,8 +37,8 @@
                             <div class="row mb-3 ">
                                 <div class="col-sm-10">
                                     <div class="form-outline">
-                                        <input type="text" onfocus="this.select()" name="p_name" id="p_name"
-                                            class="form-control" />
+                                        <input autocomplete="yes" type="text" onfocus="this.select()" name="p_name"
+                                            id="p_name" class="form-control" />
                                         <label for="p_name" class="form-label">Patient Name</label>
                                     </div>
                                 </div>
@@ -52,8 +52,8 @@
                             <div class="row mb-3 ">
                                 <div class="col-sm-10">
                                     <div class="form-outline">
-                                        <input type="text" onfocus="this.select()" name="p_phone" id="p_phone"
-                                            class="form-control" />
+                                        <input autocomplete="yes" type="text" onfocus="this.select()" name="p_phone"
+                                            id="p_phone" class="form-control" />
                                         <label for="p_phone" class="form-label">Patient Phone Number</label>
                                     </div>
                                 </div>
@@ -77,64 +77,58 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="container-sm">
+                    <div class="col-sm-6 col-md-6">
+                        <div class="container-fluid">
                             <h5 class="h5">Appointment Scheduling Details</h5>
                             <form id="appointment-form" method="post">
-                                @csrf
-                                <table class="table table-borderless row">
-                                    <thead>
-                                        <style>
-                                            td,
-                                            th,
-                                            .table>* {
-                                                padding: 0 !important;
-                                            }
-                                        </style>
-                                        <tr class="row pb-1">
-                                            <th scope="col" class="col-sm-4">Patient No</th>
-                                            <td scope="col" class="col-sm-8">
-                                                <input readonly type="text" name="opd_number"
-                                                    class="form-control-sm w-100" id="opd_number" />
-                                            </td>
-                                        </tr>
-                                        <tr class="row pb-1">
-                                            <th scope="row" class="col-sm-4">Name(s)</th>
-                                            <td class="col-sm-8">
-                                                <input readonly class="form-control-sm w-100" type="text"
-                                                    id="names" />
-                                            </td>
-                                        </tr>
-                                        <tr class="row pb-1">
-                                            <th scope="row" class="col-sm-4">Age</th>
-                                            <td class="col-sm-8">
-                                                <input readonly class="form-control-sm w-100" type="text"
-                                                    id="names" />
-                                            </td>
-                                        </tr>
-                                        <tr class="row pb-1">
-                                            <th scope="row" class="col-sm-4">Time</th>
-                                            <td class="col-sm-8">
-                                                <input readonly class="form-control-sm w-100" type="text"
-                                                    id="names" />
-                                            </td>
-                                        </tr>
-                                        <tr class="row pb-1">
-                                            <th scope="row" class="col-sm-4">Date</th>
-                                            <td class="col-sm-8">
-                                                <input readonly class="form-control-sm w-100" type="text"
-                                                    id="names" />
-                                            </td>
-                                        </tr>
-                                        <tr class="row pb-1">
-                                            <th scope="row" class="col-sm-4">Visit No</th>
-                                            <td class="col-sm-8">
-                                                <input readonly class="form-control-sm w-100" type="text"
-                                                    id="names" />
-                                            </td>
-                                        </tr>
-                                    </thead>
-                                </table>
+                                {{ csrf_field() }}
+                                <div class="row mb-1">
+                                    <label class="col-sm-4 col-form-label-sm" for="patient_id">Patient No</label>
+                                    <div class="col-sm-8">
+                                        <input readonly type="text" name="patient_id" class="form-control-sm w-100"
+                                            id="patient_id" />
+                                    </div>
+                                </div>
+                                <div class="row mb-1">
+                                    <label class="col-sm-4 col-form-label-sm" for="names">Name(s)</label>
+                                    <div class="col-sm-8">
+                                        <input readonly class="form-control-sm w-100" type="text" name="names"
+                                            id="names" />
+                                    </div>
+                                </div>
+                                <div class="row mb-1">
+                                    <label class="col-sm-4 col-form-label-sm" for="dob">Birth Date</label>
+                                    <div class="col-sm-8">
+                                        <input readonly type="text" name="dob" class="form-control-sm w-100" id="dob" />
+                                    </div>
+                                </div>
+                                <div class="row mb-1">
+                                    <label class="col-sm-4 col-form-label-sm" for="age">Age</label>
+                                    <div class="col-sm-8">
+                                        <input readonly type="text" name="age" class="form-control-sm w-100" id="age" />
+                                    </div>
+                                </div>
+                                <div class="row mb-1">
+                                    <label class="col-sm-4 col-form-label-sm" for="app_time">Time</label>
+                                    <div class="col-sm-8">
+                                        <input readonly type="text" name="app_time"
+                                            class="form-control-sm w-100 timepicker" id="app_time" />
+                                    </div>
+                                </div>
+                                <div class="row mb-1">
+                                    <label class="col-sm-4 col-form-label-sm" for="app_date">Date</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="app_date" class="form-control-sm w-100 datepicker"
+                                            id="app_date" />
+                                    </div>
+                                </div>
+                                <div class="row mb-1">
+                                    <label class="col-sm-4 col-form-label-sm" for="visit_no">Visit No</label>
+                                    <div class="col-sm-8">
+                                        <input readonly type="text" name="visit_no" class="form-control-sm w-100"
+                                            id="visit_no" />
+                                    </div>
+                                </div>
                                 {{-- <button class="btn btn-primary">Add New Visit</button> --}}
                             </form>
                         </div>
@@ -142,12 +136,12 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" data-bs-toggle="button" id="book-appointment"
-                    class="btn btn-primary disabled " title="Book appointment for this patient">Add New Visit</button>
-                <a href="{{ route('patient.add-new') }}" target="_blank" rel="noopener noreferrer" type="button" class="btn btn-warning "
-                    title="Add new patient">Add New Patient</a>
-                <button type="button" data-bs-toggle="button" class="btn btn-danger"
-                    data-bs-dismiss="modal" aria-label="Close Modal" title="Close appointment">Discard</button>
+                <button type="button" data-bs-toggle="button" id="book-appointment" class="btn btn-primary disabled "
+                    title="Book appointment for this patient">Add New Visit</button>
+                <a href="{{ route('patient.add-new') }}" target="_blank" rel="noopener noreferrer" type="button"
+                    class="btn btn-warning " title="Add new patient">Add New Patient</a>
+                <button type="button" data-bs-toggle="button" class="btn btn-danger" data-bs-dismiss="modal"
+                    aria-label="Close Modal" title="Close appointment">Discard</button>
             </div>
         </div>
     </div>
@@ -162,26 +156,27 @@
 </style>
 <script>
     function searchPatientByOPDNumber() {
-        var input = $('#p_opd_no');
+        var input = $('#id');
         console.log(input.val().toString().toUpperCase());
         $('ul#searched-list').empty();
         $('#book-appointment').addClass('disabled');
         if (!input.val()) {
             input.focus();
         } else {
-            /* $.ajax({
-                url: "/patient/opd_no/" + input.val().toString().toUpperCase(),
+            $.ajax({
+                url: "/qhims/patients/" + input.val().toString().toUpperCase(),
                 data: {
                     _token: "{{ csrf_token() }}",
                 },
-                success: function(data) {
+                success: function (data) {
+                    console.log(data);
                     var li;
                     if (!data.failed) {
                         data.data.forEach(d => {
                             console.log(d);
                             li = `<li class="list-group-item p-0">` +
-                                `<a type="button" onclick="fillApp(event)" class="nav-link p-0" data-opd_no="${d.opd_no}">` +
-                                d.first_name + " " + d.last_name +
+                                `<a type="button" onclick="fillApp(event)" class="nav-link p-0" data-id="${d.id}">` +
+                                d.full_name +
                                 `</a>` +
                                 `</li>`;
                             console.log(li);
@@ -194,10 +189,10 @@
                     }
                     console.log(data);
                 },
-                error: function(err) {
+                error: function (err) {
                     console.log(err);
                 }
-            }); */
+            });
         }
     }
 
@@ -208,19 +203,20 @@
         if (!input.val()) {
             input.focus();
         } else {
-            /* $.ajax({
-                url: "/search-patient/name/" + input.val().toString().toLowerCase(),
+            $.ajax({
+                url: "/qhims/patient/name",
                 data: {
                     _token: "{{ csrf_token() }}",
+                    name: input.val().toString().toUpperCase()
                 },
-                success: function(data) {
+                success: function (data) {
                     var li;
                     if (!data.failed) {
                         data.data.forEach(d => {
                             console.log(d);
                             li = `<li class="list-group-item p-0">` +
-                                `<a type="button" onclick="fillApp(event)" class="nav-link p-0" data-opd_no="${d.opd_no}">` +
-                                d.first_name + " " + d.last_name +
+                                `<a type="button" onclick="fillApp(event)" class="nav-link p-0" data-id="${d.id}">` +
+                                d.full_name +
                                 `</a>` +
                                 `</li>`;
                             console.log(li);
@@ -232,10 +228,10 @@
                             '<div class="text-center text-dark">Empty results</div>'))
                     }
                 },
-                error: function(err) {
-
+                error: function (err) {
+                    console.log(err);
                 }
-            }); */
+            });
         }
     }
 
@@ -246,19 +242,20 @@
         if (!input.val()) {
             input.focus();
         } else {
-            /* $.ajax({
-                url: "/search-patient/phone/" + input.val(),
+            $.ajax({
+                url: "/qhims/patient/phone",
                 data: {
                     _token: "{{ csrf_token() }}",
+                    phone: input.val()
                 },
-                success: function(data) {
+                success: function (data) {
                     var li;
                     if (!data.failed) {
                         data.data.forEach(d => {
                             console.log(d);
                             li = `<li class="list-group-item p-0">` +
-                                `<a type="button" onclick="fillApp(event)" class="nav-link p-0" data-opd_no="${d.opd_no}">` +
-                                d.first_name + " " + d.last_name +
+                                `<a type="button" onclick="fillApp(event)" class="nav-link p-0" data-id="${d.id}">` +
+                                d.full_name +
                                 `</a>` +
                                 `</li>`;
                             console.log(li);
@@ -270,67 +267,62 @@
                             '<div class="text-center text-dark">Empty results</div>'))
                     }
                 },
-                error: function(err) {
-
+                error: function (err) {
+                    console.log(err);
                 }
-            }); */
+            });
         }
     }
 
-    $(document).ready(function() {
-        $("#p_name").keypress(function(e) {
+    $(document).ready(function () {
+        $("#p_name").keypress(function (e) {
             if (!isNaN(String.fromCharCode(e.which))) {
                 e.preventDefault();
             }
         });
-        $("#p_phone").keypress(function(e) {
+        $("#p_phone").keypress(function (e) {
             if (isNaN(String.fromCharCode(e.which))) {
                 e.preventDefault();
             }
         });
-
-        $('input.timepicker').timepicker({
-            currentTime: moment(),
-            timeFormat: 'h:mm',
-            interval: 30,
-        });
     });
-
     function fillApp(target) {
-        var $uuid = target.target.dataset.opd_no;
+        var $uuid = target.target.dataset.id;
         console.log($uuid);
         $('#book-appointment').removeClass('disabled');
         $.ajax({
-            url: "/patient/opd_no/" + $uuid,
+            url: "/qhims/patients/" + $uuid,
             type: 'GET',
             data: {
                 _token: "{{ csrf_token() }}",
             },
-            success: function(data) {
+            success: function (data) {
                 console.log(data);
-                $('input[name="f_name"]').val(data.data[0].first_name);
-                $('input[name="l_name"]').val(data.data[0].last_name);
+                $('input[name="names"]').val(data.data[0].full_name);
                 $('input[name="visit_no"]').val("{{ getvisitNumber() }}");
-                $('input[name="opd_number"]').val(data.data[0].opd_no);
+                $('input[name="app_time"]').val(moment().format('H:m'));
+                $('input[name="app_date"]').val("{{ Date('Y-m-d') }}");
+                $('input[name="dob"]').val(data.data[0].date_of_birth);
+                $('input[name="patient_id"]').val(data.data[0].id);
                 $('input[name="age"]').val(calculateAge(data.data[0].date_of_birth));
             }
         });
     }
-
-    $('#book-appointment').on('click', function() {
+    $('#book-appointment').on('click', function () {
         var form = $('form#appointment-form').serialize();
         $.ajax({
-            url: "/book_appointment",
+            url: "{{ route('appointment.schedule.post') }}",
             type: 'POST',
             data: form,
-            success: function(data) {
+            success: function (data) {
+                console.log(data);
                 if (data.success) {
                     console.log(data);
                     window.open(data.url, '_self');
                 }
             },
             cache: false,
-            error: function(err) {
+            error: function (err) {
                 console.log(err, err.responseJSON.message);
                 // $('.error-msg').text(error.responseJSON.message);
                 // $('.error-msg').show();
@@ -340,7 +332,6 @@
             }
         });
     });
-    // });
 
     function calculateAge(birthdate) {
         var today = new Date();

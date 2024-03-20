@@ -11,10 +11,41 @@ body {
     height: 100vh;
 }
 
+.app::-webkit-scrollbar {
+    background: rgb(99, 99, 99);
+}
+
+.app::-webkit-scrollbar-thumb {
+    background-color: #a9a9a9;
+    width: 8px;
+    height: 10px;
+}
+
+.app::-webkit-scrollbar-track {
+    width: 10px;
+    height: 10px;
+}
+
 .app-login {
     height: 100vh;
     display: flex;
     place-items: center;
+}
+
+.app-signup-double-view {
+    height: 100vh;
+    /* display: flex; */
+    place-items: center;
+    margin: 0 auto;
+}
+
+.app-signup-double-view {
+    
+}
+.signup-form {
+    width: 640pt;
+    max-width: 100%;
+
 }
 
 .app-view {
@@ -181,4 +212,5 @@ ul>li a.app-col-nav-link.active {
 .divider.divider.divider-gray .divider-text:after {
     border-color: rgba(67, 89, 113, 0.1);
 }
+
 /* end styles for text divider */

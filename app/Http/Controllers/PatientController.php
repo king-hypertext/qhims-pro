@@ -14,7 +14,8 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
+        // Patient::query()->
+        return view('patients.index', ['patients' => Patient::all(), 'title' => 'ALL PATIENTS']);
     }
 
     /**
@@ -27,7 +28,7 @@ class PatientController extends Controller
 
     public function createNewPatient()
     {
-        return view('patients.add', ['tittle' => 'ADD NEW PATIENT']);
+        return view('patients.add', ['title' => 'ADD NEW PATIENT']);
     }
 
     /**
@@ -37,30 +38,42 @@ class PatientController extends Controller
     public function store(AddNewPatientRequest $request)
     {
         $request->validated();
-        $request->dd();
+        if ($request->is_staff == 1) {
+            if (request()->has('staff_id')) {
+                request()->validate([
+                    "staff_id" => "required|exists:users,id|unique:patients,staff_id",
+                ], [
+                    "staff_id.exists" => "Staff ID ($request->staff_id) does not exists",
+                    "staff_id.unique" => "The entered Staff ID ($request->staff_id) is already added"
+                ]);
+            }
+        }
+        // $request->dd();
         $patient = new Patient();
-        $patient->id = $request->id;
-        $patient->first_name = $request->first_name;
-        $patient->mid_name = $request->mid_name;
-        $patient->last_name = $request->last_name;
-        $patient->address = $request->adddress;
-        $patient->phone_number = $request->phone;
-        $patient->date_of_birth = $request->date_of_birth;
+
+        $patient->id = strtoupper($request->id);
+        $patient->first_name = strtoupper($request->first_name);
+        $patient->mid_name = strtoupper($request->mid_name);
+        $patient->last_name = strtoupper($request->last_name);
+        $patient->address = strtoupper($request->address);
+        $patient->phone_number = strtoupper($request->phone_number);
+        $patient->date_of_birth = strtoupper($request->date_of_birth);
         $patient->email = $request->email;
-        $patient->gender = $request->gender;
-        $patient->religion = $request->religion;
-        $patient->blood_type = $request->blood_type;
-        $patient->is_staff = $request->is_staff;
-        $patient->staff_id = $request->staff_id;
+        $patient->gender = strtoupper($request->gender);
+        $patient->religion = strtoupper($request->religion);
+        $patient->blood_group = strtoupper($request->blood_group);
+        $patient->is_staff = strtoupper($request->is_staff);
+        $patient->staff_id = strtoupper($request->staff_id);
         $patient->save(); //save the data to the database
+
         $emergency_contact = new EmergencyContact();
-        $emergency_contact->patient_id = $request->id;
-        $emergency_contact->first_name = $request->e_firstname;
-        $emergency_contact->last_name = $request->e_last_name;
-        $emergency_contact->address = $request->e_address;
-        $emergency_contact->relationship = $request->relation;
-        $emergency_contact->phone_number = $request->e_phone;
-        $emergency_contact->save();//save patient emergency contact in the databse
+        $emergency_contact->patient_id = strtoupper($request->id);
+        $emergency_contact->first_name = strtoupper($request->e_firstname);
+        $emergency_contact->last_name = strtoupper($request->e_lastname);
+        $emergency_contact->address = strtoupper($request->e_address);
+        $emergency_contact->relationship = strtoupper($request->e_relation);
+        $emergency_contact->phone_number = strtoupper($request->e_phone);
+        $emergency_contact->save(); //save patient emergency contact in the databse
 
         return back()->with('success', 'Patient Added');
     }
@@ -70,23 +83,93 @@ class PatientController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = Patient::query()->where('id', 'LIKE', "%$id")->get();
+        if ($data == null || $data->count() < 1) {
+            return response()->json(['failed' => true, 'data' => 'No results found for ' . $id]);
+        }
+        return response()->json(['success' => true, 'data' => $data]);
     }
-
+    /** find patient by key: phone number */
+    public function searchByPhone(Request $request)
+    {
+        if ($request->has('phone')) {
+            $phone = $request->phone;
+            $query = Patient::query()->where('phone_number', 'LIKE', "%$phone%")->get();
+            // $query->dd();
+            return $query->count() < 1 ?
+                response()->json(['failed' => true, 'data' => "No results found for key: $phone"]) :
+                response()->json(['success' => true, 'data' => $query]);
+        }
+        return response()->json(['failed' => true, 'data' => 'invalid/bad request']);
+    }
+    /** find patient using key: patient name */
+    public function searchByName(Request $request)
+    {
+        if ($request->has('name')) {
+            $name = $request->name;
+            $query = Patient::query()->where('full_name', 'LIKE', "%$name%")->get();
+            // $query->dd();
+            return $query->count() < 1 ?
+                response()->json(['failed' => true, 'data' => "No results found for key: $name"]) :
+                response()->json(['success' => true, 'data' => $query]);
+        }
+        return response()->json(['failed' => true, 'data' => 'invalid/bad request']);
+    }
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        return view(
+            'patients.edit',
+            [
+                'patient' => Patient::find($id),
+                'e_contact' => EmergencyContact::query()->where('patient_id', '=', $id)->first(),
+                'title' => 'EDIT PATIENT'
+            ]
+        );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AddNewPatientRequest $request, string $id)
     {
-        //
+        $request->validated();
+        if ($request->is_staff == 1) {
+            if (request()->has('staff_id')) {
+                request()->validate([
+                    "staff_id" => "required|exists:users,id|unique:patients,staff_id",
+                ], [
+                    "staff_id.exists" => "Staff ID ($request->staff_id) does not exists",
+                    "staff_id.unique" => "The entered Staff ID ($request->staff_id) is already added"
+                ]);
+            }
+        }
+        $patient = Patient::find($id);
+        $patient->first_name = strtoupper($request->first_name);
+        $patient->mid_name = strtoupper($request->mid_name);
+        $patient->last_name = strtoupper($request->last_name);
+        $patient->address = strtoupper($request->address);
+        $patient->phone_number = strtoupper($request->phone_number);
+        $patient->date_of_birth = strtoupper($request->date_of_birth);
+        $patient->email = $request->email;
+        $patient->gender = strtoupper($request->gender);
+        $patient->religion = strtoupper($request->religion);
+        $patient->blood_group = strtoupper($request->blood_group);
+        $patient->is_staff = strtoupper($request->is_staff);
+        $patient->staff_id = strtoupper($request->staff_id);
+        $patient->save(); //save the data to the database
+
+        $emergency_contact = EmergencyContact::find(EmergencyContact::query()->where('patient_id', '=', $id)->value('id'));
+        $emergency_contact->first_name = strtoupper($request->e_firstname);
+        $emergency_contact->last_name = strtoupper($request->e_lastname);
+        $emergency_contact->address = strtoupper($request->e_address);
+        $emergency_contact->relationship = strtolower($request->e_relation);
+        $emergency_contact->phone_number = strtoupper($request->e_phone);
+        $emergency_contact->save(); //save patient emergency contact in the databse
+
+        return back()->with('success', 'Patient Info Updated');
     }
 
     /**

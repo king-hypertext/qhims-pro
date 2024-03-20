@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\hrm;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
+use App\Models\User;
 
 class HRMController extends Controller
 {
@@ -12,9 +14,13 @@ class HRMController extends Controller
      */
     public function index()
     {
-        return view('hrm.index', ['tittle' => 'HRM']);
+        return view('hrm.index', ['title' => 'HRM']);
     }
 
+    public function addStaffForm(): View
+    {
+        return view('hrm.add_staff', ['title' => 'ADD NEW STAFF']);
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -29,6 +35,10 @@ class HRMController extends Controller
     public function store(Request $request)
     {
         //
+        $request->dd();
+        $user = new User();
+
+        // $staff = new Sta 
     }
 
     /**

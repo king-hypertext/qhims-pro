@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <title>Q - HIMS | {{ $tittle ?? '' }}</title>
+    <title>Q - HIMS | {{ $title ?? 'QUICK LINKS' }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes" />
     <meta name="author" content="Kingsley Osei Opoku - (Quajo King)" />
@@ -15,12 +15,15 @@
     <link rel="stylesheet" href="{{ asset('plugins/daterange-picker/daterangepicker.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/time-picker/jquery.timepicker.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/animate-css/animate.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2-bootstrap-5-theme.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/alert/sweetalert2.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/mdb/mdb.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('root/app.css') }}" />
     <script src="{{ asset('plugins/jQuery/external/jquery.js') }}"></script>
     <script src="{{ asset('plugins/alert/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('plugins/moment/moment.js') }}"></script>
 </head>
 
 <body class="app">
@@ -43,36 +46,7 @@
         </div>
     </div>
     @include('layout.modals.schedule-appointment')
-    <script src="{{ asset('plugins/mdb/mdb.umd.min.js') }}"></script>
-    <script src="{{ asset('plugins/bootstrap/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('plugins/moment/moment.js') }}"></script>
-    <script src="{{ asset('plugins/jQuery/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('plugins/date-picker/js/moment-with-locales.min.js') }}"></script>
-    <script src="{{ asset('plugins/daterange-picker/daterangepicker.js') }}"></script>
-    <script src="{{ asset('plugins/time-picker/jquery.timepicker.min.js') }}"></script>
-    <script src="{{ asset('root/index.js') }}"></script>
     <script type="text/javascript">
-        const showSuccessAlert = Swal.mixin({
-            position: 'top',
-            toast: true,
-            timer: 6500,
-            showConfirmButton: false,
-            timerProgressBar: false,
-            showClass: {
-                popup: `
-                        animate__animated
-                        animate__fadeInDown
-                        animate__faster
-                        `
-            },
-            hideClass: {
-                popup: `
-                        animate__animated
-                        animate__fadeOutIn
-                        animate__faster
-                        `
-            }
-        });
         $(document).ready(() => {
             setInterval(() => {
                 $('[data-date-time]').html(new Date().toLocaleString())
@@ -81,6 +55,27 @@
     </script>
     @if (session('success'))
         <script type="text/javascript">
+            const showSuccessAlert = Swal.mixin({
+                position: 'top',
+                toast: true,
+                timer: 6500,
+                showConfirmButton: false,
+                timerProgressBar: false,
+                showClass: {
+                    popup: `
+                        animate__animated
+                        animate__fadeInDown
+                        animate__faster
+                        `
+                },
+                hideClass: {
+                    popup: `
+                        animate__animated
+                        animate__fadeOutIn
+                        animate__faster
+                        `
+                }
+            });
             showSuccessAlert.fire({
                 icon: 'success',
                 text: '{{ session('success') }}',
@@ -91,6 +86,27 @@
     @endif
     @if (session('error'))
         <script type="text/javascript">
+            const showSuccessAlert = Swal.mixin({
+                position: 'top',
+                toast: true,
+                timer: 6500,
+                showConfirmButton: false,
+                timerProgressBar: false,
+                showClass: {
+                    popup: `
+                        animate__animated
+                        animate__fadeInDown
+                        animate__faster
+                        `
+                },
+                hideClass: {
+                    popup: `
+                        animate__animated
+                        animate__fadeOutIn
+                        animate__faster
+                        `
+                }
+            });
             showSuccessAlert.fire({
                 icon: 'error',
                 text: '{{ session('error') }}',
@@ -101,6 +117,27 @@
     @endif
     @if (session('warning'))
         <script type="text/javascript">
+            const showSuccessAlert = Swal.mixin({
+                position: 'top',
+                toast: true,
+                timer: 6500,
+                showConfirmButton: false,
+                timerProgressBar: false,
+                showClass: {
+                    popup: `
+                        animate__animated
+                        animate__fadeInDown
+                        animate__faster
+                        `
+                },
+                hideClass: {
+                    popup: `
+                        animate__animated
+                        animate__fadeOutIn
+                        animate__faster
+                        `
+                }
+            });
             showSuccessAlert.fire({
                 icon: 'warning',
                 text: '{{ session('warning') }}',
@@ -109,6 +146,14 @@
             });
         </script>
     @endif
+    <script src="{{ asset('plugins/mdb/mdb.umd.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('plugins/jQuery/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('plugins/date-picker/js/moment-with-locales.min.js') }}"></script>
+    <script src="{{ asset('plugins/daterange-picker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('plugins/time-picker/jquery.timepicker.min.js') }}"></script>
+    <script src="{{ asset('plugins/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('root/index.js') }}"></script>
 </body>
 
 </html>
