@@ -10,10 +10,9 @@
         content="Q-HIMS is a web-based system for hospitals to manage mostly all the processes and activities of the hospital" />
     <link rel="stylesheet" href="{{ asset('font-icons/css/all.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/mdb/mdb.min.css') }}" />
-    {{--
-    <link rel="stylesheet" href="{{ asset('plugins/bootstrap/bootstrap.min.css') }}" /> --}}
     <link rel="stylesheet" href="{{ asset('root/app.css') }}" />
     <script src="{{ asset('plugins/jQuery/external/jquery.js') }}"></script>
+    
 </head>
 
 <body class="app-login">

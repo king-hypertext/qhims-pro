@@ -74,7 +74,7 @@
                     <span class="text-danger" title="Required">*</span>
                 </label>
                 <div class="col-sm-9">
-                    <input required type="text" value="{{ @old('date_of_birth') }}" class="form-control datepicker"
+                    <input required type="text" value="{{ @old('date_of_birth') }}" class="form-control"
                         id="date_of_birth" name="date_of_birth" />
                 </div>
             </div>
@@ -216,7 +216,7 @@
     <script type="text/javascript">
         $('form#add-new-patient').on('submit', () => {
             $('#add-new-patient :submit').html('<span id="save-icon" class="fas fa-spinner fa-spin"></span>'+' Saving...').addClass('disabled');
-            return true;
+            return 1;
         });
         var label = $('label[for="staff_id"]');
         $('[name="is_staff"]').change(e => {

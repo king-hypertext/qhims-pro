@@ -6,7 +6,7 @@
     </div>
     <div class="row justify-content-center" style="place-items: center">
         <div class="card p-4 p-md-5 border-0 mt-5 login" style="max-width: 520px">
-            <form id="login" method="POST" action="/qhims/login" autocomplete="on">
+            <form id="login" method="POST" action="/login" autocomplete="on">
                 @csrf
                 @if (session('password_changed'))
                     <div class="alert alert-info  text-center  text-info">{{ session('password_changed') }}</div>
@@ -43,7 +43,8 @@
                 </div>
             </form>
             <div class="form-text">
-                Forgotten Password? <a href="#" title="Click to reset your password" class="btn-link">Reset</a>
+                Forgotten Password? <a href="#" onclick="window.alert('Password reset \nPlease Contact your IT Manager')"
+                    title="Click to reset your password" class="btn-link">Reset</a>
             </div>
             <div class="text-center mt-4">
                 <h6 class="h6" data-date-time="true"></h6>

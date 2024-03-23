@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginFormRequest extends FormRequest
+class AddNewStaffRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,14 +22,9 @@ class LoginFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'staff_id' => 'required|exists:users,staff_id',
-            'password' => 'required'
-        ];
-    }
-    public function messages(): array
-    {
-        return [
-            'staff_id.exists'=>'Unknown Staff ID'
+            'staff_id'=>'required|unique:users,staff_id',
+            'first_name'=>'required|string',
+            'role'=>'required'
         ];
     }
 }

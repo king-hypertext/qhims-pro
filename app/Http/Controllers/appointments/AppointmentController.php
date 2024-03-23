@@ -9,14 +9,15 @@ use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        return view('appointment.index', ['title' => 'ALL APPIONTMENTD']);
     }
     public function create(Request $request)
     {
         // $request->dd();
         $patient = Patient::find($request->patient_id);
-        abort_if($patient == null , 403, "Error occured fetching patient data, Contact your IT administrator. \n this might be caused by a change in url");
+        abort_if($patient == null, 403, "Error occured fetching patient data, Contact your IT administrator. \n this might be caused by a change in url");
         $e_contact = EmergencyContact::find(EmergencyContact::query()->where('patient_id', '=', $patient->id)->value('id'));
         return view('appointment.schedule', ['title' => 'SCHEDULE APPOINTMENT', 'patient' => $patient, 'e_contact' => $e_contact]);
     }

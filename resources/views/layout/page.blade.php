@@ -32,17 +32,14 @@
             @include('layout.navigation')
         </div>
         <div class="app-content">
-            <header
-                class="app-header d-flex justify-content-between py-2 my-auto shadow position-sticky top-0 bg-white ">
+            <header class="app-header d-flex justify-content-between py-2 my-auto shadow position-sticky top-0 bg-white"
+                style="z-index: 99;">
                 <h6 class="h6 mt-1" data-date-time="true"></h6>
                 <ul class="nav">
                     <li class="nav-item ">user type:</li>
                 </ul>
             </header>
-            @yield('breadcrump')
-            <div class="container-lg">
-                @yield('content')
-            </div>
+            @yield('content')
         </div>
     </div>
     @include('layout.modals.schedule-appointment')

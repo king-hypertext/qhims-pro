@@ -4,13 +4,13 @@
         <div class="bd-example m-0 border-0">
             <nav>
                 <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-                    <button class="nav-link" href="{{ route('hrm.index') }}" id="nav-home-tab" data-bs-toggle="tab"
-                        type="button" role="tab" aria-controls="nav-home" aria-selected="true">
-                        staff
-                    </button>
+                    <a class="nav-link" href="{{ route('hrm.index') }}" onclick="window.open(this.href, '_self')"
+                        id="nav-home-tab" data-bs-toggle="tab" type="button" role="tab" aria-controls="nav-home">
+                        manage staff
+                    </a>
                     <a class="nav-link active " href="{{ route('staff.add-new') }}" id="nav-add-staff-tab"
                         data-bs-toggle="tab" type="button" role="tab" aria-controls="nav-add-staff"
-                        aria-selected="false" tabindex="-1">
+                        aria-selected="false" tabindex="-1" aria-selected="true">
                         Add Staff
                     </a>
                 </div>
@@ -68,8 +68,8 @@
                                         </div>
                                         <div class="form-outline mb-4">
                                             <input required type="date" autofocus name="date_of_birth" id="date_of_birth"
-                                                class="form-control form-control-lg active"
-                                                max="{{ Date('Y-m-d') }}" value="{{ @old('date_of_birth') }}" />
+                                                class="form-control form-control-lg active" max="{{ Date('Y-m-d') }}"
+                                                value="{{ @old('date_of_birth') }}" />
                                             <label class="form-label" for="date_of_birth">Date of Birth
                                                 <span class="text-danger" title="Required">*</span>
                                             </label>
@@ -114,6 +114,7 @@
                                                 class="form-control form-control-lg "
                                                 value="{{ @old('phone_number') }}" />
                                             <label class="form-label" for="religion">Phone Number
+                                                <span class="text-danger" title="Required">*</span>
                                             </label>
                                         </div>
                                         <div class="form-outline mb-4">
@@ -159,10 +160,10 @@
     </div>
     <script>
         $('form#add-staff').on('submit', (e) => {
-            e.preventDefault();
+            // e.preventDefault();
             $('#add-staff :submit').html('<span id="save-icon" class="fas fa-spinner fa-spin"></span>' +
                 ' Saving...').addClass('disabled');
-            return 0;
+            return 1;
         });
     </script>
 @endsection

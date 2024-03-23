@@ -100,7 +100,7 @@ class PatientController extends Controller
                 response()->json(['failed' => true, 'data' => "No results found for key: $phone"]) :
                 response()->json(['success' => true, 'data' => $query]);
         }
-        return response()->json(['failed' => true, 'data' => 'invalid/bad request']);
+        return response()->json(['failed' => true, 'data' => 'invalid/bad request'], 403);
     }
     /** find patient using key: patient name */
     public function searchByName(Request $request)

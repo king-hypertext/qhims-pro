@@ -13,6 +13,9 @@ class Patient extends Model
     protected $table = 'patients';
     protected $keyType = 'string';
     public $incrementing = false;
+    protected $casts =[
+        'id'=>'uuid',
+    ];
     public function emergency_contact()
     {
         return $this->hasMany(EmergencyContact::class);
