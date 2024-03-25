@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();            
-            $table->uuid('patient_id')->unique();
+            $table->uuid('patient_id');
             $table->foreign('patient_id')->references('id')->on('patients')->onUpdate('cascade')->onDelete('cascade');
             $table->string('description');
             $table->string('item');

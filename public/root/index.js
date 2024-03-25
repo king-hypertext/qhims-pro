@@ -11,7 +11,7 @@
             })
         })
     })
-    $('input[name="dob"]').datepicker({
+    $('input[name="dob"],input[name="date_of_birth"]').datepicker({
         dateFormat: "yy-mm-dd",
         maxDate: '+0D',
         changeMonth: true,

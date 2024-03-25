@@ -154,45 +154,42 @@
         border: 0;
     }
 </style>
-<script>
+<script type="application/javascript">
+    async function fetchPatient(key = '') {
+        let data = await $.ajax('/qhims/patients/' + key + '?auth=1', {
+            success: response => {
+                console.log(response);
+                var li;
+                if (!response.failed) {
+                    response.data.forEach(d => {
+                        console.log(d);
+                        li = `<li class="list-group-item p-0">` +
+                            `<a type="button" onclick="fillApp(event)" class="nav-link p-0" data-id="${d.id}">` +
+                            d.full_name +
+                            `</a>` +
+                            `</li>`;
+                        console.log(li);
+                        $('ul#searched-list').append(li);
+                    });
+                } else {
+                    $('ul#searched-list').append($(
+                        '<div class="text-center text-dark">Empty results</div>'))
+                }
+            },
+            error: (req, errorMessage, error) => {
+                console.group(req, errorMessage, error)
+            }
+        });
+        console.log(data);
+    }
     function searchPatientByOPDNumber() {
         var input = $('#id');
-        console.log(input.val().toString().toUpperCase());
         $('ul#searched-list').empty();
         $('#book-appointment').addClass('disabled');
         if (!input.val()) {
             input.focus();
         } else {
-            $.ajax({
-                url: "/qhims/patients/" + input.val().toString().toUpperCase(),
-                data: {
-                    _token: "{{ csrf_token() }}",
-                },
-                success: function (data) {
-                    console.log(data);
-                    var li;
-                    if (!data.failed) {
-                        data.data.forEach(d => {
-                            console.log(d);
-                            li = `<li class="list-group-item p-0">` +
-                                `<a type="button" onclick="fillApp(event)" class="nav-link p-0" data-id="${d.id}">` +
-                                d.full_name +
-                                `</a>` +
-                                `</li>`;
-                            console.log(li);
-                            $('ul#searched-list').append(li);
-                        });
-                    }
-                    if (data.failed) {
-                        $('ul#searched-list').append($(
-                            '<div class="text-center text-dark">Empty results</div>'))
-                    }
-                    console.log(data);
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
+            fetchPatient(input.val().toString().toUpperCase())
         }
     }
 
@@ -203,35 +200,7 @@
         if (!input.val()) {
             input.focus();
         } else {
-            $.ajax({
-                url: "/qhims/patient/name",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    name: input.val().toString().toUpperCase()
-                },
-                success: function (data) {
-                    var li;
-                    if (!data.failed) {
-                        data.data.forEach(d => {
-                            console.log(d);
-                            li = `<li class="list-group-item p-0">` +
-                                `<a type="button" onclick="fillApp(event)" class="nav-link p-0" data-id="${d.id}">` +
-                                d.full_name +
-                                `</a>` +
-                                `</li>`;
-                            console.log(li);
-                            $('ul#searched-list').append(li);
-                        });
-                    }
-                    if (data.failed) {
-                        $('ul#searched-list').append($(
-                            '<div class="text-center text-dark">Empty results</div>'))
-                    }
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
+            fetchPatient(input.val().toString().toUpperCase())
         }
     }
 
@@ -242,35 +211,7 @@
         if (!input.val()) {
             input.focus();
         } else {
-            $.ajax({
-                url: "/qhims/patient/phone",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    phone: input.val()
-                },
-                success: function (data) {
-                    var li;
-                    if (!data.failed) {
-                        data.data.forEach(d => {
-                            console.log(d);
-                            li = `<li class="list-group-item p-0">` +
-                                `<a type="button" onclick="fillApp(event)" class="nav-link p-0" data-id="${d.id}">` +
-                                d.full_name +
-                                `</a>` +
-                                `</li>`;
-                            console.log(li);
-                            $('ul#searched-list').append(li);
-                        });
-                    }
-                    if (data.failed) {
-                        $('ul#searched-list').append($(
-                            '<div class="text-center text-dark">Empty results</div>'))
-                    }
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
+            fetchPatient(input.val())
         }
     }
 
@@ -286,16 +227,12 @@
             }
         });
     });
+
     function fillApp(target) {
         var $uuid = target.target.dataset.id;
         console.log($uuid);
         $('#book-appointment').removeClass('disabled');
-        $.ajax({
-            url: "/qhims/patients/" + $uuid,
-            type: 'GET',
-            data: {
-                _token: "{{ csrf_token() }}",
-            },
+        $.ajax('/qhims/patients/' + key + '?auth=1', {
             success: function (data) {
                 console.log(data);
                 $('input[name="names"]').val(data.data[0].full_name);
@@ -305,6 +242,9 @@
                 $('input[name="dob"]').val(data.data[0].date_of_birth);
                 $('input[name="patient_id"]').val(data.data[0].id);
                 $('input[name="age"]').val(calculateAge(data.data[0].date_of_birth));
+            },
+            error: (req, errorMessage, error) => {
+                console.group(req, errorMessage, error)
             }
         });
     }
@@ -324,11 +264,6 @@
             cache: false,
             error: function (err) {
                 console.log(err, err.responseJSON.message);
-                // $('.error-msg').text(error.responseJSON.message);
-                // $('.error-msg').show();
-                // setTimeout(() => {
-                //     $('.error-msg').hide();
-                // }, 3000);
             }
         });
     });

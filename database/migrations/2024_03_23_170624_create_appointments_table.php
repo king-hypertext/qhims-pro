@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('patient_id');
             $table->foreign('patient_id')->references('id')->on('patients')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('doctor_id');
-            $table->foreign('doctor_id')->references('id')->on('doctors')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('doctor_id')->references('id')->on('doctors')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('modality');
             $table->string('study');
             $table->string('duration');

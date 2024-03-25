@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bills extends Model
+class PatientMedicalRecord extends Model
 {
     use HasFactory;
-
-    public function patient(){
-        return $this->belongsToMany(Patient::class);
-    }
+    
+    public function patient()
+{
+    return $this->belongsTo(Patient::class);
+}
 }

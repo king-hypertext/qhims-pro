@@ -17,12 +17,12 @@
     <link rel="stylesheet" href="{{ asset('plugins/animate-css/animate.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2-bootstrap-5-theme.css') }}" />
-    <link rel="stylesheet" href="{{ asset('plugins/alert/sweetalert2.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/mdb/mdb.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('root/app.css') }}" />
     <script src="{{ asset('plugins/jQuery/external/jquery.js') }}"></script>
     <script src="{{ asset('plugins/alert/sweetalert2.all.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('plugins/alert/sweetalert2.css') }}" />
     <script src="{{ asset('plugins/moment/moment.js') }}"></script>
 </head>
 
@@ -52,10 +52,11 @@
     </script>
     @if (session('success'))
         <script type="text/javascript">
-            const showSuccessAlert = Swal.mixin({
+            var showSuccessAlert = Swal.mixin({
                 position: 'top',
                 toast: true,
                 timer: 6500,
+                // showCloseButton: true,
                 showConfirmButton: false,
                 timerProgressBar: false,
                 showClass: {
@@ -83,7 +84,7 @@
     @endif
     @if (session('error'))
         <script type="text/javascript">
-            const showSuccessAlert = Swal.mixin({
+            var showSuccessAlert = Swal.mixin({
                 position: 'top',
                 toast: true,
                 timer: 6500,
@@ -114,7 +115,7 @@
     @endif
     @if (session('warning'))
         <script type="text/javascript">
-            const showSuccessAlert = Swal.mixin({
+            var showSuccessAlert = Swal.mixin({
                 position: 'top',
                 toast: true,
                 timer: 6500,

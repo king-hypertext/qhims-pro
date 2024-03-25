@@ -74,7 +74,7 @@
                     <span class="text-danger" title="Required">*</span>
                 </label>
                 <div class="col-sm-9">
-                    <input required type="text" value="{{ @old('date_of_birth') }}" class="form-control"
+                    <input required type="text" value="{{ @old('date_of_birth') }}" class="form-control dob"
                         id="date_of_birth" name="date_of_birth" />
                 </div>
             </div>

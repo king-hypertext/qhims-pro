@@ -5,28 +5,40 @@
     </div>
     <div class="table-responsive-lg">
         <table class="table table-striped table-hover table-borderless align-middle">
-            <thead class="">
-                <tr>
-                    <th>Column 1</th>
-                    <th>Column 2</th>
-                    <th>Column 3</th>
-                </tr>
-            </thead>
             <tbody class="table-group-divider">
                 <tr class="">
-                    <td scope="row">Item</td>
-                    <td>Item</td>
-                    <td>Item</td>
-                </tr>
-                <tr class="">
-                    <td scope="row">Item</td>
-                    <td>Item</td>
-                    <td>Item</td>
+                    <td class="container">
+                        <div class="table-responsive-xl">
+                            <table
+                                class="table table-striped-columns table-hover table-borderless table-primary align-middle">
+                                <thead class="table-light">
+                                    <caption>
+                                        Table Name
+                                    </caption>
+                                    <tr>
+                                        <th colspan="2">patient name</th>
+                                        <th>appiontment status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    <tr class="">
+                                        <td scope="row">Item</td>
+                                        <td>Item</td>
+                                        <td>Item</td>
+                                    </tr>
+                                    <tr class="">
+                                        <td colspan="3" scope="row">Item</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </td>
                 </tr>
             </tbody>
-            <tfoot>
-
-            </tfoot>
         </table>
     </div>
 @endsection

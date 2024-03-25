@@ -48,8 +48,6 @@ Route::prefix('/qhims')->group(function () {
     });
     Route::resource('/patients', PatientController::class);
     Route::get('/patient/add-new', [PatientController::class, 'createNewPatient'])->name('patient.add-new');
-    Route::get('/patient/phone', [PatientController::class, 'searchByPhone']);
-    Route::get('/patient/name', [PatientController::class, 'searchByName']);
     Route::put('/patient/edit/{id}', [PatientController::class, 'update'])->name('patient.update-info');
 
     /* appointment scheduling */

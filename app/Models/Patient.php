@@ -13,11 +13,19 @@ class Patient extends Model
     protected $table = 'patients';
     protected $keyType = 'string';
     public $incrementing = false;
-    protected $casts =[
-        'id'=>'uuid',
-    ];
     public function emergency_contact()
     {
         return $this->hasMany(EmergencyContact::class);
+    }
+    public function medical_reocords()
+    {
+        return $this->hasMany(PatientMedicalRecord::class);
+    }
+    public function bills()
+    {
+        return $this->hasMany(Bills::class);
+    }
+    public function doctor(){
+        return $this->hasMany(Doctor::class);
     }
 }

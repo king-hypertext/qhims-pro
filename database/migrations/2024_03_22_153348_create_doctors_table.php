@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('doctors', function (Blueprint $table) {
             $table->id();
             $table->uuid('staff_id');
-            $table->foreign('staff_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('staff_id')->references('staff_id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('first_name');
             $table->string('mid_name')->nullable();
             $table->string('last_name');

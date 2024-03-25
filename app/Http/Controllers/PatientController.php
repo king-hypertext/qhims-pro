@@ -12,9 +12,10 @@ class PatientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         // Patient::query()->
+        // $request->dd();
         return view('patients.index', ['patients' => Patient::all(), 'title' => 'ALL PATIENTS']);
     }
 
@@ -81,39 +82,15 @@ class PatientController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($key)
     {
-        $data = Patient::query()->where('id', 'LIKE', "%$id")->get();
+        // request()->dd();
+        abort_unless(request('auth') == 1, 422, 'invalid/bad request');
+        $data = Patient::query()->whereAny(['id', 'full_name', 'phone_number'], 'LIKE', "%$key%")->get();
         if ($data == null || $data->count() < 1) {
-            return response()->json(['failed' => true, 'data' => 'No results found for ' . $id]);
+            return response()->json(['failed' => true, 'data' => 'No results found for ' . $key]);
         }
         return response()->json(['success' => true, 'data' => $data]);
-    }
-    /** find patient by key: phone number */
-    public function searchByPhone(Request $request)
-    {
-        if ($request->has('phone')) {
-            $phone = $request->phone;
-            $query = Patient::query()->where('phone_number', 'LIKE', "%$phone%")->get();
-            // $query->dd();
-            return $query->count() < 1 ?
-                response()->json(['failed' => true, 'data' => "No results found for key: $phone"]) :
-                response()->json(['success' => true, 'data' => $query]);
-        }
-        return response()->json(['failed' => true, 'data' => 'invalid/bad request'], 403);
-    }
-    /** find patient using key: patient name */
-    public function searchByName(Request $request)
-    {
-        if ($request->has('name')) {
-            $name = $request->name;
-            $query = Patient::query()->where('full_name', 'LIKE', "%$name%")->get();
-            // $query->dd();
-            return $query->count() < 1 ?
-                response()->json(['failed' => true, 'data' => "No results found for key: $name"]) :
-                response()->json(['success' => true, 'data' => $query]);
-        }
-        return response()->json(['failed' => true, 'data' => 'invalid/bad request']);
     }
     /**
      * Show the form for editing the specified resource.

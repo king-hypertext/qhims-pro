@@ -76,11 +76,11 @@ if (!function_exists('generatePatientID')) {
     }
 
     /**
-     * generate user id
+     * generate a new user id
      *
      *
      *
-     * @return String User ID
+     * @return String New User ID
      * 
      **/
     function generateUserId()
